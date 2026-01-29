@@ -25,6 +25,10 @@ SECRET_KEY = 'django-insecure-t7l(=#_yrukp9-05c1=w#y!fc1(tw4jmf_xftl#g_l-d*a8&!x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+USE_TZ = True
+TIME_ZONE = 'Asia/Kolkata'
+
 ALLOWED_HOSTS = []
 
 
@@ -39,22 +43,38 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
 
+    'django_filters',
     'rest_framework',
     'corsheaders',
     'users',
+    'products',
 ]
 
 
-AUTH_USER_MODEL='users.User'
+AUTH_USER_MODEL = 'users.User'
 
-REST_FRAMEWORK ={
-    'DEFAULT_AUTHENTICATION_CLASSES':(
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+
+    
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
-        "rest_framework.permissions.AllowAny",
     ),
+
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',
+    ),
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 }
 
 MIDDLEWARE = [
